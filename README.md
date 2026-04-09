@@ -255,6 +255,10 @@ B.Tech ES | Indian Institute of Technology Jodhpur
 B.Tech ME | Indian Institute of Technology Jodhpur
 [Github Profile](https://github.com/ankit2006173)
 
+**Harshal Joshi**
+B.Tech CI | Indian Institute of Technology Jodhpur
+[Github Profile](https://github.com/Harshal2108)
+
 ---
 
 ## License
