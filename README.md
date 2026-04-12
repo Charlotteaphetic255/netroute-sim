@@ -215,7 +215,7 @@ The live demo lets you:
 ## Development Timeline
 
 - [x] Project planning & architecture design
-- [ ] Graph data structure (`graph.c`)
+- [x] Graph data structure (`graph.c`)
 - [ ] Union-Find with path compression
 - [ ] Min-Heap / Priority Queue
 - [ ] Kruskal's Algorithm
