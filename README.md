@@ -217,7 +217,7 @@ The live demo lets you:
 - [x] Project planning & architecture design
 - [x] Graph data structure (`graph.c`)
 - [x] Union-Find with path compression
-- [ ] Min-Heap / Priority Queue
+- [x] Min-Heap / Priority Queue
 - [ ] Kruskal's Algorithm
 - [ ] Prim's Algorithm
 - [ ] Dijkstra's Algorithm
