@@ -1,5 +1,5 @@
 #include<stdlib.h>
-#include"union_find.h"
+#include"unionFind.h"
 
 unionFind* ufCreate(int n){
     if(n<=0) return NULL;

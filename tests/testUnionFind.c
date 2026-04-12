@@ -1,13 +1,12 @@
 /*
 Command to run (from tests/):
-gcc -o test_union_find test_union_find.c ../src/union_find.c -I./../src
-.\test_union_find.exe
+gcc -o testUnionFind testUnionFind.c ../src/unionFind.c -I./../src
+.\testUnionFind.exe
 */
 
 #include <assert.h>
 #include <stdio.h>
-
-#include "union_find.h"
+#include "unionFind.h"
 
 static void test_create_invalid_size(void) {
     printf("Test 1: create with invalid size\n");

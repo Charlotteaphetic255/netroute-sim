@@ -1,5 +1,5 @@
 /*
-    union_find.h
+    unionFind.h
     netroute-sim - Union-Find (Disjoint Set Union) data structure for network route simulation
 */
 

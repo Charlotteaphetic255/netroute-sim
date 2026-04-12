@@ -1,6 +1,6 @@
 /*
 Command to run : 
-gcc -o test_graph test_graph.c ../src/graph.c -I./../src
+gcc -o testGraph testGraph.c ../src/graph.c -I./../src
 
 
 */
