@@ -259,6 +259,10 @@ B.Tech ME | Indian Institute of Technology Jodhpur
 B.Tech CI | Indian Institute of Technology Jodhpur
 [Github Profile](https://github.com/Harshal2108)
 
+**Mridupawan Kalita**
+B.Tech ES | Indian Institute of Technology Jodhpur
+[Github Profile](https://github.com/MriduKalita23)
+
 ---
 
 ## License
