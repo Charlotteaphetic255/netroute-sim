@@ -219,7 +219,7 @@ The live demo lets you:
 - [x] Union-Find with path compression
 - [x] Min-Heap / Priority Queue
 - [x] Kruskal's Algorithm
-- [ ] Prim's Algorithm
+- [x] Prim's Algorithm
 - [ ] Dijkstra's Algorithm
 - [ ] Packet Simulator
 - [ ] Topology File Loader
