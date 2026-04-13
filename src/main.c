@@ -17,12 +17,175 @@ gcc -Wall -Wextra -g -o netroute-sim src/graph.c src/unionFind.c src/minHeap.c s
 #include <stdlib.h>
 #include <string.h>
 
+#if defined(__EMSCRIPTEN__) && defined(__has_include)
+#if __has_include(<emscripten/emscripten.h>)
+#include <emscripten/emscripten.h>
+#endif
+#endif
+
+#ifndef EMSCRIPTEN_KEEPALIVE
+#define EMSCRIPTEN_KEEPALIVE __attribute__((used))
+#endif
+
 #include "graph.h"
 #include "kruskal.h"
 #include "prim.h"
 #include "dijkstra.h"
 #include "simulator.h"
 #include "loader.h"
+
+#ifdef __EMSCRIPTEN__
+static graph* wasmGraph = NULL;
+static int wasmLastMstCost = -1;
+
+EMSCRIPTEN_KEEPALIVE
+int wasm_load_graph(int* edge_data, int edge_count, int node_count) {
+    if (!edge_data || edge_count < 0 || node_count <= 0) {
+        return 0;
+    }
+
+    if (wasmGraph) {
+        graphFree(wasmGraph);
+        wasmGraph = NULL;
+    }
+
+    wasmGraph = createGraph(node_count);
+    if (!wasmGraph) {
+        return 0;
+    }
+
+    for (int i = 0; i < edge_count; i++) {
+        int baseIndex = i * 3;
+        int src = edge_data[baseIndex];
+        int dest = edge_data[baseIndex + 1];
+        int weight = edge_data[baseIndex + 2];
+
+        if (src < 0 || src >= node_count || dest < 0 || dest >= node_count) {
+            continue;
+        }
+
+        addEdge(wasmGraph, src, dest, weight);
+    }
+
+    wasmLastMstCost = -1;
+    return 1;
+}
+
+EMSCRIPTEN_KEEPALIVE
+int* wasm_run_kruskal() {
+    if (!wasmGraph) {
+        return NULL;
+    }
+
+    mstResult* result = kruskal(wasmGraph);
+    if (!result) {
+        return NULL;
+    }
+
+    int outputSize = 1 + (result->edgeCount * 3);
+    int* output = (int*)malloc(sizeof(int) * outputSize);
+    if (!output) {
+        mstFree(result);
+        return NULL;
+    }
+
+    output[0] = result->edgeCount;
+    for (int i = 0; i < result->edgeCount; i++) {
+        int baseIndex = 1 + (i * 3);
+        output[baseIndex] = result->edges[i].src;
+        output[baseIndex + 1] = result->edges[i].dest;
+        output[baseIndex + 2] = result->edges[i].weight;
+    }
+
+    wasmLastMstCost = result->totalCost;
+    mstFree(result);
+    return output;
+}
+
+EMSCRIPTEN_KEEPALIVE
+int* wasm_run_prim() {
+    if (!wasmGraph) {
+        return NULL;
+    }
+
+    mstResult* result = primMST(wasmGraph);
+    if (!result) {
+        return NULL;
+    }
+
+    int outputSize = 1 + (result->edgeCount * 3);
+    int* output = (int*)malloc(sizeof(int) * outputSize);
+    if (!output) {
+        mstFree(result);
+        return NULL;
+    }
+
+    output[0] = result->edgeCount;
+    for (int i = 0; i < result->edgeCount; i++) {
+        int baseIndex = 1 + (i * 3);
+        output[baseIndex] = result->edges[i].src;
+        output[baseIndex + 1] = result->edges[i].dest;
+        output[baseIndex + 2] = result->edges[i].weight;
+    }
+
+    wasmLastMstCost = result->totalCost;
+    mstFree(result);
+    return output;
+}
+
+EMSCRIPTEN_KEEPALIVE
+int* wasm_run_dijkstra(int src, int dest) {
+    if (!wasmGraph) {
+        return NULL;
+    }
+
+    if (src < 0 || src >= wasmGraph->num_nodes || dest < 0 || dest >= wasmGraph->num_nodes) {
+        return NULL;
+    }
+
+    pathResult* result = dijkstraShortestPath(wasmGraph, src, dest);
+    if (!result) {
+        return NULL;
+    }
+
+    int outputSize = 1;
+    if (result->reachable) {
+        outputSize += result->pathLength;
+    }
+
+    int* output = (int*)malloc(sizeof(int) * outputSize);
+    if (!output) {
+        pathResultFree(result);
+        return NULL;
+    }
+
+    if (!result->reachable) {
+        output[0] = 0;
+        pathResultFree(result);
+        return output;
+    }
+
+    output[0] = result->pathLength;
+    for (int i = 0; i < result->pathLength; i++) {
+        output[i + 1] = result->path[i];
+    }
+
+    pathResultFree(result);
+    return output;
+}
+
+EMSCRIPTEN_KEEPALIVE
+int wasm_get_mst_cost() {
+    return wasmLastMstCost;
+}
+
+EMSCRIPTEN_KEEPALIVE
+void wasm_free_result(int* ptr) {
+    if (ptr) {
+        free(ptr);
+    }
+}
+#endif
 
 static void printUsage(const char* programName) {
     printf("Usage: %s <topology_file> [options]\n", programName);

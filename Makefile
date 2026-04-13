@@ -1,3 +1,4 @@
+SHELL := cmd.exe
 CC     = gcc
 EMCC   = emcc
 CFLAGS = -Wall -Wextra -g
@@ -12,7 +13,7 @@ SRC = src/graph.c \
       src/loader.c \
       src/main.c
 
-# ── Native CLI build ──────────────────────────────────────────────────────────
+# Native CLI build
 # Usage: make
 # Output: ./netroute-sim
 
@@ -21,7 +22,7 @@ all: netroute-sim
 netroute-sim: $(SRC)
 	$(CC) $(CFLAGS) -o netroute-sim $(SRC)
 
-# ── WebAssembly build ─────────────────────────────────────────────────────────
+# WebAssembly build
 # Usage: make wasm
 # Output: web/netroute.js + web/netroute.wasm
 
@@ -31,13 +32,12 @@ wasm: $(SRC)
 	  -s MODULARIZE=1 \
 	  -s EXPORT_NAME="NetRouteSim" \
 	  -s ALLOW_MEMORY_GROWTH=1 \
-	  -s EXPORTED_FUNCTIONS='["_wasm_load_graph","_wasm_run_kruskal","_wasm_run_prim","_wasm_run_dijkstra","_wasm_get_mst_cost","_wasm_free_result","_malloc","_free"]' \
-	  -s EXPORTED_RUNTIME_METHODS='["ccall","cwrap","HEAP32","getValue","setValue"]' \
+	  -s EXPORTED_FUNCTIONS="["_wasm_load_graph","_wasm_run_kruskal","_wasm_run_prim","_wasm_run_dijkstra","_wasm_get_mst_cost","_wasm_free_result","_malloc","_free"]" \
+	  -s EXPORTED_RUNTIME_METHODS="["ccall","cwrap","HEAP32","getValue","setValue"]" \
 	  -o web/netroute.js \
 	  $(SRC)
-	@echo "WASM build done → web/netroute.js + web/netroute.wasm"
-
-# ── Run tests ─────────────────────────────────────────────────────────────────
+	@echo "WASM build done: web/netroute.js + web/netroute.wasm"
+# Run tests
 # Usage: make test
 
 test:
@@ -64,14 +64,14 @@ test:
 
 	@echo "All tests passed."
 
-# ── Local web server (for testing WASM in browser) ───────────────────────────
+# Local web server (for testing WASM in browser)
 # Usage: make serve
 
 serve:
 	@echo "Serving at http://localhost:8080"
 	cd web && python3 -m http.server 8080
 
-# ── Clean up all build artifacts ─────────────────────────────────────────────
+# Clean up all build artifacts
 # Usage: make clean
 
 clean:
