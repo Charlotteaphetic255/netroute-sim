@@ -220,7 +220,7 @@ The live demo lets you:
 - [x] Min-Heap / Priority Queue
 - [x] Kruskal's Algorithm
 - [x] Prim's Algorithm
-- [ ] Dijkstra's Algorithm
+- [x] Dijkstra's Algorithm
 - [ ] Packet Simulator
 - [ ] Topology File Loader
 - [ ] WASM bridge & Emscripten build
