@@ -223,7 +223,7 @@ The live demo lets you:
 - [x] Dijkstra's Algorithm
 - [x] Packet Simulator
 - [x] Topology File Loader
-- [ ] WASM bridge & Emscripten build
+- [x] WASM bridge & Emscripten build
 - [ ] Frontend Canvas visualizer
 - [ ] Side-by-side animation comparison
 - [ ] Host on GitHub Pages
