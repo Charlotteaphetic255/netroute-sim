@@ -59,6 +59,9 @@ test:
 	@echo "--- Testing Dijkstra ---"
 	$(CC) $(CFLAGS) -o _test_dijkstra tests/testDijkstra.c src/graph.c src/minHeap.c src/dijkstra.c && ./_test_dijkstra
 
+	@echo "--- Testing Simulator ---"
+	$(CC) $(CFLAGS) -o _testSimulator tests/testSimulator.c src/graph.c src/minHeap.c src/dijkstra.c src/loader.c src/simulator.c && ./_testSimulator
+
 	@echo "All tests passed."
 
 # ── Local web server (for testing WASM in browser) ───────────────────────────
@@ -73,7 +76,7 @@ serve:
 
 clean:
 	rm -f netroute-sim
-	rm -f _test_uf _test_heap _test_graph _test_kruskal _test_prim _test_dijkstra
+	rm -f _test_uf _test_heap _test_graph _test_kruskal _test_prim _test_dijkstra _testSimulator
 	rm -f web/netroute.js web/netroute.wasm
 
 .PHONY: all wasm test serve clean
