@@ -218,7 +218,7 @@ The live demo lets you:
 - [x] Graph data structure (`graph.c`)
 - [x] Union-Find with path compression
 - [x] Min-Heap / Priority Queue
-- [ ] Kruskal's Algorithm
+- [x] Kruskal's Algorithm
 - [ ] Prim's Algorithm
 - [ ] Dijkstra's Algorithm
 - [ ] Packet Simulator
