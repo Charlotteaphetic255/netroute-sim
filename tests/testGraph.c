@@ -1,7 +1,7 @@
 /*
 Command to run : 
 gcc -o testGraph testGraph.c ../src/graph.c -I./../src
-
+./testGraph.exe
 
 */
 
