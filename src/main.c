@@ -1,4 +1,8 @@
 /*
+mingw32-make 
+
+OR 
+
 Run from root:
 gcc -Wall -Wextra -g -o netroute-sim src/graph.c src/unionFind.c src/minHeap.c src/kruskal.c src/prim.c src/dijkstra.c src/simulator.c src/loader.c src/main.c
 ./netroute-sim topologies/small_network.txt --mst kruskal
