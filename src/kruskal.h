@@ -1,6 +1,6 @@
 /*
-
-
+    kruskal.h
+    netroute-sim - Kruskal's algorithm for finding the Minimum Spanning Tree (MST) of a graph
 */
 
 #ifndef KRUSKAL_H
