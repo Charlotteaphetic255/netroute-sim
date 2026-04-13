@@ -222,7 +222,7 @@ The live demo lets you:
 - [x] Prim's Algorithm
 - [x] Dijkstra's Algorithm
 - [ ] Packet Simulator
-- [ ] Topology File Loader
+- [x] Topology File Loader
 - [ ] WASM bridge & Emscripten build
 - [ ] Frontend Canvas visualizer
 - [ ] Side-by-side animation comparison
