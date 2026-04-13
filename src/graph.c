@@ -1,5 +1,6 @@
 #include<stdlib.h>
 #include"graph.h"
+#include<stdio.h>
 
 graph* createGraph(int num_nodes) {
     graph* g = (graph*)malloc(sizeof(graph));
