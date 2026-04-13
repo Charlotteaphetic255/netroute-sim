@@ -221,7 +221,7 @@ The live demo lets you:
 - [x] Kruskal's Algorithm
 - [x] Prim's Algorithm
 - [x] Dijkstra's Algorithm
-- [ ] Packet Simulator
+- [x] Packet Simulator
 - [x] Topology File Loader
 - [ ] WASM bridge & Emscripten build
 - [ ] Frontend Canvas visualizer
